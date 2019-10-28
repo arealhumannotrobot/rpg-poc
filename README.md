@@ -14,18 +14,29 @@ For people who wanna work on it, it is highly recommended to fork it instead of 
 2. [subtlecrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto)
 
 ## TODO
-1. PGP key generation
-  - with user id, passphrase input
-2. [offline storage](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa)
+1. PGP
+  - keygen: ✓ (w/ Alias, Email, Passphrase)
+  - Store key(s) #DB
+  - Signing a Key
+    - ! need previously agreed session token
+    - ? Thumb only / the whole key
+    - Store in trusted key chain #DB
+  - Sign Msg
+  - Sign & Encrypt Msg
+2. #DB: [offline storage](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa)
   - [Cache API](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api) for resources necessary to load the app
   - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for other data
-3. QR Scanner
+3. QR Scanner: ✓
   - https://hackernoon.com/react-js-qr-code-scanner-with-webworker-in-background-7a8bcefd43d
   - https://stackoverflow.com/questions/52255929/progressive-web-app-pwa-qr-code-scanner
   - https://www.npmjs.com/package/react-qr-reader
-4. Bluetooth?
-  - https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web
-  - https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6
+4. Data Exchange
+  - Key exchange
+  - Key chain exchange
+  - transmitting medium
+    - [Bluetooth google documentation](https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web)
+    - [Bluetooth Medium](https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6)
+    - looping, multi-part QR Codes
 
 
 ------------------------------------
