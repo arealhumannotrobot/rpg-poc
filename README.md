@@ -38,6 +38,22 @@ For people who wanna work on it, it is highly recommended to fork it instead of 
     - [Bluetooth Medium](https://medium.com/@urish/start-building-with-web-bluetooth-and-progressive-web-apps-6534835959a6)
     - looping, multi-part QR Codes
 
+5. GUI Tabs
+  1. My keys
+    - list secret keys
+    - list trusts
+  2. New Key
+    - key generation 
+    - key import
+  3. Key signing
+    - QR gen & scan
+  4. Exhange keyring
+    - multipart QR gen & scan
+  5. verify stranger
+    - QR gen & scan
+  6. messaging 
+    - sign only 
+    - sign then encrypt
 
 ------------------------------------
  
