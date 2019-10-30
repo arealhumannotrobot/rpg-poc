@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import pgp from 'openpgp';
 import QrReader from 'react-qr-reader';
 //=====================================//
