@@ -32,6 +32,7 @@ export function reduce_tab(state=INIT_STATE["tab"], action:actIntent_tab){
             console.log("ACT_TYPE_TAB_STUB");
             return state;
         default:
+            return state;
             break;
     }
 }

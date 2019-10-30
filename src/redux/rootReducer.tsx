@@ -3,6 +3,5 @@ import { reduce_tab } from "./reduce_tab";
 
 
 export const rootReducer = combineReducers({
-    reduce_tab,
-    
+    tab:reduce_tab,
 })
