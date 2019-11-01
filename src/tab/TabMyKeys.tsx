@@ -3,10 +3,9 @@ import logo from './logo.svg';
 import './App.scss';
 import pgp from 'openpgp';
 import QrReader from 'react-qr-reader';
-// import {} from ''
 //=====================================//
 
-import CompKeyInput from './comp/CompKeyInput';
+import CompKeyInput from '../comp/CompKeyInput';
 
 let refPub, refPvt, refMsg
 
@@ -28,12 +27,9 @@ const App: React.FC = () => {
   const [qrCode, setQrCode] = useState("");
 
   return (
-
-
     <div className="App">
       {/* <header className="App-header">
       </header> */}
-
       <p>
         Code for Proof of Concept: <a href="https://github.com/arealhumannotrobot/rpg-poc">https://github.com/arealhumannotrobot/rpg-poc</a>
       </p>
