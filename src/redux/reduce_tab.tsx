@@ -33,6 +33,5 @@ export function reduce_tab(state=INIT_STATE["tab"], action:actIntent_tab){
             return state;
         default:
             return state;
-            break;
     }
 }
