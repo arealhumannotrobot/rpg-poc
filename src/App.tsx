@@ -31,6 +31,7 @@ const App: React.FC<AppProps> = (props) => {
           </div>
           <div className="custom-file">
             <input
+              //https://usefulangle.com/post/193/javascript-read-local-file
               type="file"
               className="custom-file-input"
               id="inputGroupFile01"
