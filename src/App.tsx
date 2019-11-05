@@ -20,7 +20,41 @@ const App: React.FC<AppProps> = (props) => {
     reduxState:INIT_STATE_TYPE,
   }
   const RpgTabContent:React.FC<RpgTabContentProps> = (props) => {
-    let Tab:typeof TabMyKeys = (childprops)=>(<div>{props.reduxState.tab}</div>);
+    let Tab:typeof TabMyKeys = (childprops)=>(
+      <div>
+        {props.reduxState.tab}
+        <div className="input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text" id="inputGroupFileAddon01">
+              Upload
+            </span>
+          </div>
+          <div className="custom-file">
+            <input
+              type="file"
+              className="custom-file-input"
+              id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01"
+              accept="text/plain"
+              onChange={(e)=>{
+                console.log(e.target.files);
+                let reader = new FileReader();
+                reader.addEventListener('load', (e)=>{
+                  if (e.target)
+                    console.log(e.target.result);
+                })
+                if (e.target.files && e.target.files.length){
+                  reader.readAsText(e.target.files[0]);
+                }
+              }}
+            />
+            <label className="custom-file-label" htmlFor="inputGroupFile01">
+              Choose file
+            </label>
+          </div>
+        </div>
+      </div>
+    );
     if (props.reduxState.tab === "MY_KEYS"){
       Tab = TabMyKeys;
     }
