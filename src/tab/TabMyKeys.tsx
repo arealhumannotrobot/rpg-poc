@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import './App.scss';
+import '../App.scss';
 import pgp from 'openpgp';
 import QrReader from 'react-qr-reader';
 //=====================================//
@@ -9,7 +9,7 @@ import CompKeyInput from '../comp/CompKeyInput';
 
 let refPub, refPvt, refMsg
 
-const App: React.FC = () => {
+const TabMyKeys: React.FC = () => {
   const [pubVal, setPubVal] = useState("");
   const [pvtVal, setPvtVal] = useState("");
   const [msgVal, setMsgVal] = useState("");
@@ -27,7 +27,7 @@ const App: React.FC = () => {
   const [qrCode, setQrCode] = useState("");
 
   return (
-    <div className="App">
+    <div className="container">
       {/* <header className="App-header">
       </header> */}
       <p>
@@ -131,5 +131,5 @@ const App: React.FC = () => {
   );
 }
 
-export default App;
+export default TabMyKeys;
 

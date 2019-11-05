@@ -7,6 +7,8 @@ import NavLink from 'react-bootstrap/NavLink';
 import {connect} from 'react-redux';
 import { INIT_STATE_TYPE } from './redux/initState';
 import { actcreate_tab_setTab } from './redux/reduce_tab';
+//============== Tab ============//
+import TabMyKeys from './tab/TabMyKeys';
 
 type AppProps = {
   reduxState:INIT_STATE_TYPE,
@@ -18,11 +20,26 @@ const App: React.FC<AppProps> = (props) => {
     reduxState:INIT_STATE_TYPE,
   }
   const RpgTabContent:React.FC<RpgTabContentProps> = (props) => {
-    return (
-      <div>
-        <p>{props.reduxState.tab}</p>
-      </div>
-    )
+    let Tab:typeof TabMyKeys = (childprops)=>(<div>{props.reduxState.tab}</div>);
+    if (props.reduxState.tab === "MY_KEYS"){
+      Tab = TabMyKeys;
+    }
+    else if (props.reduxState.tab === "NEW_KEYS"){
+    }
+    else if (props.reduxState.tab === "KEY_SIGNING"){
+      
+    }
+    else if (props.reduxState.tab === "EXCH_KEY_RING"){
+      
+    }
+    else if (props.reduxState.tab === "VERF_STRANGER"){
+      
+    }
+    else if (props.reduxState.tab === "MSG_CRYPT"){
+      
+    }
+
+    return ( <Tab /> )
   }
 
   return (
@@ -35,15 +52,28 @@ const App: React.FC<AppProps> = (props) => {
       </p>
       <Container>
         <Nav 
-          activeKey="MY_KEYS" 
+          variant="pills"
+          activeKey={props.reduxState.tab} 
           onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}}
         >
-          <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
-          <NavLink eventKey="NEW_KEYS">NEW_KEYS</NavLink>
-          <NavLink eventKey="KEY_SIGNING">KEY_SIGNING</NavLink>
-          <NavLink eventKey="EXCH_KEY_RING">EXCH_KEY_RING</NavLink>
-          <NavLink eventKey="VERF_STRANGER">VERF_STRANGER</NavLink>
-          <NavLink eventKey="MSG_CRYPT">MSG_CRYPT</NavLink>
+          <Nav.Item>
+            <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink eventKey="NEW_KEYS">NEW_KEYS</NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink eventKey="KEY_SIGNING">KEY_SIGNING</NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink eventKey="EXCH_KEY_RING">EXCH_KEY_RING</NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink eventKey="VERF_STRANGER">VERF_STRANGER</NavLink>
+          </Nav.Item>
+          <Nav.Item>
+            <NavLink eventKey="MSG_CRYPT">MSG_CRYPT</NavLink>
+          </Nav.Item>
         </Nav>
         <RpgTabContent
           reduxState={props.reduxState}
