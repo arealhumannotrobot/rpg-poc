@@ -9,6 +9,7 @@ import { INIT_STATE_TYPE } from './redux/initState';
 import { actcreate_tab_setTab } from './redux/reduce_tab';
 //============== Tab ============//
 import TabMyKeys from './tab/TabMyKeys';
+import TabNewKey from './tab/TabNewKey';
 
 type AppProps = {
   reduxState:INIT_STATE_TYPE,
@@ -60,6 +61,7 @@ const App: React.FC<AppProps> = (props) => {
       Tab = TabMyKeys;
     }
     else if (props.reduxState.tab === "NEW_KEYS"){
+      Tab = TabNewKey;
     }
     else if (props.reduxState.tab === "KEY_SIGNING"){
       

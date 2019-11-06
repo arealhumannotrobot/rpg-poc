@@ -6,11 +6,11 @@ import QrReader from 'react-qr-reader';
 //=====================================//
 
 import CompKeyInput from '../comp/CompKeyInput';
-import { Form } from 'react-bootstrap';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 
 let refPub, refPvt, refMsg
 
-const TabMyKeys: React.FC = () => {
+const TabNewKey: React.FC = () => {
   const [pubVal, setPubVal] = useState("");
   const [pvtVal, setPvtVal] = useState("");
   const [msgVal, setMsgVal] = useState("");
@@ -29,32 +29,49 @@ const TabMyKeys: React.FC = () => {
 
   return (
     <div className="container">
-      <CompKeyInput
-        label={"public key"}
-        name={"public_key"}
-        id={"public_key"}
-        value={pubVal}
-      />
-      <CompKeyInput
-        label={"private key"}
-        name={"private_key"}
-        id={"private_key"}
-        value={pvtVal}
-      />
-      <Form.Group>
-        <Form.Label>Alias</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Enter email"/>
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
+      <Container>
+        <Row>
+          <Col lg={6} sm={12} xs={12}>
+            <Form.Group>
+              <Form.Label>Alias</Form.Label>
+              <Form.Control type="text" placeholder="Enter Alias" />
+              <Form.Text className="text-muted">
+                <strong>Do not</strong> use real name or any obviously identifiable nick-name. 
+                For this application, it is preferrable to use a pseudonym or alias instead.
+              </Form.Text>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter email"/>
+              <Form.Text className="text-muted">
+                Ideally, this should be a disposable email address.
+              </Form.Text>
+            </Form.Group>
+          </Col>
+        </Row>
+      </Container>
+      <Container>
+        <Row>
+          <Col lg={6} sm={12} xs={12}>
+            <CompKeyInput
+              label={"public key"}
+              name={"public_key"}
+              id={"public_key"}
+              value={pubVal}
+            />
+          </Col>
+          <Col>
+            <CompKeyInput
+              label={"private key"}
+              name={"private_key"}
+              id={"private_key"}
+              value={pvtVal}
+            />
+          </Col>
+        </Row>
+      </Container>
       <div>
         <label htmlFor="alias">Alias</label>
         <input type="text" name="alias" id="alias" onChange={(v)=>{setAlias(v.target.value)}}/>
@@ -141,5 +158,5 @@ const TabMyKeys: React.FC = () => {
   );
 }
 
-export default TabMyKeys;
+export default TabNewKey;
 
