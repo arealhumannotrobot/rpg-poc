@@ -30,29 +30,52 @@ const TabNewKey: React.FC = () => {
   return (
     <div className="container">
       <Container>
-        <Row>
-          <Col lg={6} sm={12} xs={12}>
-            <Form.Group>
-              <Form.Label>Alias</Form.Label>
-              <Form.Control type="text" placeholder="Enter Alias" />
-              <Form.Text className="text-muted">
-                <strong>Do not</strong> use real name or any obviously identifiable nick-name. 
-                For this application, it is preferrable to use a pseudonym or alias instead.
-              </Form.Text>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email"/>
-              <Form.Text className="text-muted">
-                Ideally, this should be a disposable email address.
-              </Form.Text>
-            </Form.Group>
-          </Col>
-        </Row>
-      </Container>
-      <Container>
+        <Form
+          onInput={
+            (e:React.FormEvent<HTMLFormElement>)=>{
+              console.log(e);
+              console.log(e.target);
+            }
+          }
+          validated={true}
+        >
+          <Form.Row>
+            <Col lg={6} sm={12} xs={12}>
+              <Form.Group>
+                <Form.Label>Alias</Form.Label>
+                <Form.Text className="text-muted">
+                  <strong>Do not</strong> use real name or any obviously identifiable nick-name. <br/>
+                  For this application, it is preferrable to use a pseudonym or alias instead.
+                </Form.Text>
+                <Form.Control type="text" placeholder="Enter Alias" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Text className="text-muted">
+                  Ideally, this should be a disposable email address.<br/><br/>
+                </Form.Text>
+                <Form.Control type="email" placeholder="Enter email"/>
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Row>
+            <Col lg={6} sm={12} xs={12}>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter Password" />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm Password"/>
+              </Form.Group>
+            </Col>
+          </Form.Row>
+
+        </Form>
         <Row>
           <Col lg={6} sm={12} xs={12}>
             <CompKeyInput
