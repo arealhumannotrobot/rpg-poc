@@ -6,14 +6,13 @@ import QrReader from 'react-qr-reader';
 //=====================================//
 
 import CompKeyInput from '../comp/CompKeyInput';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import { Form, Container, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 let refPub, refPvt, refMsg
 
 const TabNewKey: React.FC = () => {
   const [pubVal, setPubVal] = useState("");
   const [pvtVal, setPvtVal] = useState("");
-  const [msgVal, setMsgVal] = useState("");
 
   const [alias, setAlias] = useState("");
   const [email, setEmail] = useState("");
@@ -37,26 +36,42 @@ const TabNewKey: React.FC = () => {
               console.log(e.target);
             }
           }
-          validated={true}
+          // validated={true}
         >
           <Form.Row>
             <Col lg={6} sm={12} xs={12}>
               <Form.Group>
                 <Form.Label>Alias</Form.Label>
-                <Form.Text className="text-muted">
-                  <strong>Do not</strong> use real name or any obviously identifiable nick-name. <br/>
-                  For this application, it is preferrable to use a pseudonym or alias instead.
-                </Form.Text>
-                <Form.Control type="text" placeholder="Enter Alias" />
+                <OverlayTrigger
+                  key={'trigger-tooltip-alias'}
+                  placement={'bottom'}
+                  trigger={'focus'}
+                  overlay={
+                    <Tooltip id={`tooltip-alias`}>
+                      <strong>Do not</strong> use real name or any identifiable nick-name for this application.
+                      Use a pseudonym or alias instead.
+                    </Tooltip>
+                  }
+                >
+                  <Form.Control type="text" placeholder="Enter Alias" />
+                </OverlayTrigger>
               </Form.Group>
             </Col>
             <Col>
               <Form.Group>
                 <Form.Label>Email</Form.Label>
-                <Form.Text className="text-muted">
-                  Ideally, this should be a disposable email address.<br/><br/>
-                </Form.Text>
-                <Form.Control type="email" placeholder="Enter email"/>
+                <OverlayTrigger
+                  key={'trigger-tooltip-email'}
+                  placement={'bottom'}
+                  trigger={'focus'}
+                  overlay={
+                    <Tooltip id={`tooltip-email`}>
+                      Ideally, this should be a disposable email address.
+                    </Tooltip>
+                  }
+                >
+                  <Form.Control type="email" placeholder="Enter email"/>
+                </OverlayTrigger>
               </Form.Group>
             </Col>
           </Form.Row>
