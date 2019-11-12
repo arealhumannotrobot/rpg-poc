@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 //=============React Bootstrap==================//
-import {Nav, Container} from 'react-bootstrap';
+import {Nav, Container, Navbar} from 'react-bootstrap';
 import NavLink from 'react-bootstrap/NavLink';
 //==============React Redux=========//
 import {connect} from 'react-redux';
@@ -81,37 +81,50 @@ const App: React.FC<AppProps> = (props) => {
 
   return (
     <div className="App">
-      <p>
-        Code for Proof of Concept: 
-        <a href="https://github.com/arealhumannotrobot/rpg-poc">
-          https://github.com/arealhumannotrobot/rpg-poc
-        </a>
-      </p>
       <Container>
-        <Nav 
-          variant="pills"
-          activeKey={props.reduxState.tab} 
-          onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}}
+        <div className="jumbotron">
+          <p>
+            Code for Proof of Concept: 
+            <a href="https://github.com/arealhumannotrobot/rpg-poc">
+              https://github.com/arealhumannotrobot/rpg-poc
+            </a>
+          </p>
+        </div>
+        <Navbar
+          fixed="top"
+          variant="dark"
+          bg="dark"
         >
-          <Nav.Item>
-            <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
-          </Nav.Item>
-          <Nav.Item>
-            <NavLink eventKey="NEW_KEYS">NEW_KEYS</NavLink>
-          </Nav.Item>
-          <Nav.Item>
-            <NavLink eventKey="KEY_SIGNING">KEY_SIGNING</NavLink>
-          </Nav.Item>
-          <Nav.Item>
-            <NavLink eventKey="EXCH_KEY_RING">EXCH_KEY_RING</NavLink>
-          </Nav.Item>
-          <Nav.Item>
-            <NavLink eventKey="VERF_STRANGER">VERF_STRANGER</NavLink>
-          </Nav.Item>
-          <Nav.Item>
-            <NavLink eventKey="MSG_CRYPT">MSG_CRYPT</NavLink>
-          </Nav.Item>
-        </Nav>
+          <Navbar.Brand
+            href="#about"
+          >
+            RPG-POC
+          </Navbar.Brand>
+          <Nav 
+            variant="pills"
+            activeKey={props.reduxState.tab} 
+            onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}}
+          >
+            <Nav.Item>
+              <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink eventKey="NEW_KEYS">NEW_KEYS</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink eventKey="KEY_SIGNING">KEY_SIGNING</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink eventKey="EXCH_KEY_RING">EXCH_KEY_RING</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink eventKey="VERF_STRANGER">VERF_STRANGER</NavLink>
+            </Nav.Item>
+            <Nav.Item>
+              <NavLink eventKey="MSG_CRYPT">MSG_CRYPT</NavLink>
+            </Nav.Item>
+          </Nav>
+        </Navbar>
         <RpgTabContent
           reduxState={props.reduxState}
         />
