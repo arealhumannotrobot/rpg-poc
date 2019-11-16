@@ -8,12 +8,14 @@ type KeyInputProp = {
   label:string,
   value?:string,
   disabled?:boolean,
+  readOnly?:boolean,
 }
 const KeyInput: React.FC<KeyInputProp> = (props) => {
   return (
     <Form.Group controlId="props.id">
       <Form.Label>{props.label}</Form.Label>
       <Form.Control
+        readOnly={props.readOnly}
         disabled={props.disabled}
         name={props.name}
         value={props.value}
