@@ -6,7 +6,7 @@ import QrReader from 'react-qr-reader';
 //=====================================//
 
 import CompKeyInput from '../comp/CompKeyInput';
-import { Form, Container, Row, Col, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Form, Container, Row, Col, OverlayTrigger, Tooltip, Button, FormControlProps } from 'react-bootstrap';
 
 let refPub, refPvt, refMsg
 
@@ -29,16 +29,14 @@ const TabNewKey: React.FC = () => {
   return (
     <div className="container">
       <Container>
+
+        {/* Input data needed for key generation */}
         <Form
-          onInput={
-            (e:React.FormEvent<HTMLFormElement>)=>{
-              console.log(e);
-              console.log(e.target);
-            }
-          }
-          // validated={true}
+          onSubmit={(e:React.FormEvent)=>{e.preventDefault(); console.log(`submit`); }}
         >
+          {/* Input Identity */}
           <Form.Row>
+            {/* Input Alias */}
             <Col lg={6} sm={12} xs={12}>
               <Form.Group>
                 <Form.Label>Alias</Form.Label>
@@ -53,10 +51,17 @@ const TabNewKey: React.FC = () => {
                     </Tooltip>
                   }
                 >
-                  <Form.Control type="text" placeholder="Enter Alias" />
+                  <Form.Control 
+                    type="text" 
+                    placeholder="Enter Alias" 
+                    required 
+                    // onChange={(v)=>{setAlias(v.target.value)}}
+                    onChange={(v:React.ChangeEvent<HTMLInputElement>)=>{console.log(v.target.value)}}
+                  />
                 </OverlayTrigger>
               </Form.Group>
             </Col>
+            {/* Input Email */}
             <Col>
               <Form.Group>
                 <Form.Label>Email</Form.Label>
@@ -66,31 +71,36 @@ const TabNewKey: React.FC = () => {
                   trigger={'focus'}
                   overlay={
                     <Tooltip id={`tooltip-email`}>
-                      Ideally, this should be a disposable email address.
+                      <strong>Do not</strong> use your personal email address. In fact, it doesn't even have to be an actual address.
                     </Tooltip>
                   }
                 >
-                  <Form.Control type="email" placeholder="Enter email"/>
+                  <Form.Control type="email" placeholder="Enter email" required/>
                 </OverlayTrigger>
               </Form.Group>
             </Col>
           </Form.Row>
+          {/* Input Passphrase */}
           <Form.Row>
+            {/* Input Passphrase */}
             <Col lg={6} sm={12} xs={12}>
               <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter Password" />
+                <Form.Label>Passphrase</Form.Label>
+                <Form.Control type="password" placeholder="Enter Passphrase" required/>
               </Form.Group>
             </Col>
+            {/* Input Passphrase */}
             <Col>
               <Form.Group>
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm Password"/>
+                <Form.Label>Confirm Passphrase</Form.Label>
+                <Form.Control type="password" placeholder="Confirm Passphrase" required/>
               </Form.Group>
             </Col>
           </Form.Row>
-
+          <Button type="submit">{`Generate`}</Button>
         </Form>
+
+
         <Row>
           <Col lg={6} sm={12} xs={12}>
             <CompKeyInput
