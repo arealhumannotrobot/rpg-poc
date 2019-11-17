@@ -1,6 +1,8 @@
 import React from 'react';
 //============= react bootstrap ============//
 import Form from 'react-bootstrap/Form';
+import { OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+import CompCopyBtn from './CompCopyBtn';
 
 type KeyInputProp = {
   name:string,
@@ -9,10 +11,45 @@ type KeyInputProp = {
   value?:string,
   disabled?:boolean,
   readOnly?:boolean,
+  copyBtn?:boolean,
 }
-const KeyInput: React.FC<KeyInputProp> = (props) => {
+const CompKeyInput: React.FC<KeyInputProp> = (props) => {
+  const copyToClipboard = (text:string|undefined) => {
+    if (!text) return;
+    let copyTest = document.queryCommandSupported('copy');
+  
+    if (copyTest === true) {
+      let copyTextArea = document.createElement("textarea");
+      // copyTextArea.hidden = true;
+      copyTextArea.value = text;
+      document.body.appendChild(copyTextArea);
+      copyTextArea.select();
+      try {
+        let successful = document.execCommand('copy');
+        let msg = successful ? 'Copied!' : 'Whoops, not copied!';
+      } catch (err) {
+        console.log('Oops, unable to copy');
+      }
+      document.body.removeChild(copyTextArea);
+    } else {
+      // Fallback if browser doesn't support .execCommand('copy')
+      window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+    }
+  }
+
+  //=======================================================//
   return (
     <Form.Group controlId="props.id">
+      {
+        props.copyBtn?
+        (
+          <CompCopyBtn
+            text={props.value}
+          />
+        ):
+        null
+      }
+      
       <Form.Label>{props.label}</Form.Label>
       <Form.Control
         readOnly={props.readOnly}
@@ -30,4 +67,4 @@ const KeyInput: React.FC<KeyInputProp> = (props) => {
   );
 }
 
-export default KeyInput;
+export default CompKeyInput;

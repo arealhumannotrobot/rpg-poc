@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import '../App.scss';
 import pgp from 'openpgp';
-import QrReader from 'react-qr-reader';
-//=====================================//
-
 import CompKeyInput from '../comp/CompKeyInput';
-import { 
-  Form, 
-  Container, 
-  Row, 
-  Col, 
-  OverlayTrigger, 
-  Tooltip, 
+//==============react-bootstrap================//
+import {
+  Form,
+  Container,
+  Row,
+  Col,
+  OverlayTrigger,
+  Tooltip,
   Button,
 } from 'react-bootstrap';
-
-let refPub, refPvt, refMsg
+//==============IndexedDB======================//
+import * as localforage from 'localforage';
+import { KEY_MY_RPG_KEYS, TYPE_MY_RPG_KEYS } from '../model/TypeDefination';
 
 const TabNewKey: React.FC = () => {
   const [pubVal, setPubVal] = useState("");
@@ -27,37 +26,50 @@ const TabNewKey: React.FC = () => {
   const [passphrase, setPassphrase] = useState("");
   const [passconfirm, setPassconfirm] = useState("");
 
-  const [keyThumb, setKeyThumb] = useState(<div></div>);
+  const [keyThumbDiv, setKeyThumbDiv] = useState(<div></div>);
+  const [keyThumb, setKeyThumb] = useState("");
 
-  const generatePGP = ()=>{
-    setKeyThumb(<div>{`Generating pgp keypairs...`}</div>);
-      pgp.generateKey({"curve":"curve25519", "userIds":[{"name":alias, "email":email}], "passphrase":passphrase})
-        .then(k => {
-          setPubVal(k.publicKeyArmored);
-          setPvtVal(k.privateKeyArmored);
+  const generatePGP = async () => {
+    setKeyThumbDiv(<div>{`Generating pgp keypairs...`}</div>);
+    try {
+      let pgpGenKey = await pgp.generateKey({ "curve": "curve25519", "userIds": [{ "name": alias, "email": email }], "passphrase": passphrase })
+      setPubVal(pgpGenKey.publicKeyArmored);
+      setPvtVal(pgpGenKey.privateKeyArmored);
+      setKeyThumb(pgpGenKey.key.getFingerprint());
+      setKeyThumbDiv(<div>{`fingerprint: ${pgpGenKey.key.getFingerprint()}`}</div>);
 
-          let finger = k.key.getFingerprint();
-          console.log(`fingerprint: ${finger}`);
-          setKeyThumb(<div>{`fingerprint: ${finger}`}</div>);
-        })
-        .catch(e=>{
-          setKeyThumb(<div>{`${e.toString()}`}</div>)
-        })
+      let myRpgKeys = await localforage.getItem<TYPE_MY_RPG_KEYS>(KEY_MY_RPG_KEYS);
+      console.log(myRpgKeys);
+      localforage.setItem<TYPE_MY_RPG_KEYS>(
+        KEY_MY_RPG_KEYS, 
+        {
+          ...(myRpgKeys||{}),
+          [pgpGenKey.key.getFingerprint()]: {
+            privateKey: pgpGenKey.privateKeyArmored,
+            publicKey: pgpGenKey.publicKeyArmored,
+            email: email,
+            alias: alias,
+          }
+        }
+      )
+
+    } 
+    catch (error) {
+      setKeyThumbDiv(<div>{`${error.toString()}`}</div>)
+    }
+
   }
   //===============================================================================//
   return (
     <Container>
-      
+
       {/* Input data needed for key generation */}
       <Form
-        onSubmit={(e:React.FormEvent)=>{
-          e.preventDefault(); 
-          if (passconfirm===passphrase){
+        onSubmit={(e: React.FormEvent) => {
+          e.preventDefault();
+          if (passconfirm === passphrase) {
             generatePGP();
-            return true;
           }
-          else
-            return false;
         }}
       >
         {/* Input Identity */}
@@ -77,11 +89,11 @@ const TabNewKey: React.FC = () => {
                   </Tooltip>
                 }
               >
-                <Form.Control 
-                  type="text" 
-                  placeholder="Enter Alias" 
-                  required 
-                  onChange={(v:React.ChangeEvent<HTMLInputElement>)=>{setAlias(v.target.value)}}
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Alias"
+                  required
+                  onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setAlias(v.target.value) }}
                 />
               </OverlayTrigger>
             </Form.Group>
@@ -96,16 +108,16 @@ const TabNewKey: React.FC = () => {
                 trigger={'focus'}
                 overlay={
                   <Tooltip id={`newkey-tooltip-email`}>
-                    <strong>Do not</strong> use your personal email address. 
+                    <strong>Do not</strong> use your personal email address.
                     In fact, it doesn't even have to be an actual address.
                   </Tooltip>
                 }
               >
-                <Form.Control 
-                  type="email" 
-                  placeholder="Enter email" 
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
                   required
-                  onChange={(v:React.ChangeEvent<HTMLInputElement>)=>{setEmail(v.target.value)}}
+                  onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setEmail(v.target.value) }}
                 />
               </OverlayTrigger>
             </Form.Group>
@@ -117,11 +129,11 @@ const TabNewKey: React.FC = () => {
           <Col lg={6} sm={12} xs={12}>
             <Form.Group>
               <Form.Label>Passphrase</Form.Label>
-              <Form.Control 
-                type="password" 
+              <Form.Control
+                type="password"
                 placeholder="Enter Passphrase"
                 required
-                onChange={(v:React.ChangeEvent<HTMLInputElement>)=>{setPassphrase(v.target.value)}}
+                onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setPassphrase(v.target.value) }}
               />
             </Form.Group>
           </Col>
@@ -129,14 +141,13 @@ const TabNewKey: React.FC = () => {
           <Col>
             <Form.Group>
               <Form.Label>Confirm Passphrase</Form.Label>
-              <Form.Control 
-                type="password" 
-                placeholder="Confirm Passphrase" 
+              <Form.Control
+                type="password"
+                placeholder="Confirm Passphrase"
                 required
-                isInvalid={passconfirm!==passphrase}
+                isInvalid={passconfirm!==passphrase?true:undefined}
                 isValid={passconfirm===passphrase}
-                onChange={(v:React.ChangeEvent<HTMLInputElement>)=>{setPassconfirm(v.target.value)}}
-                onInvalid={(e:any)=>{e.target.setCustomValidity("Passphrase mismatch!")}}
+                onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setPassconfirm(v.target.value) }}
               />
             </Form.Group>
           </Col>
@@ -145,7 +156,7 @@ const TabNewKey: React.FC = () => {
       </Form>
 
       {/* Key pairs output (for manual ASCII armor) */}
-      <div>{keyThumb}</div>
+      <div>{keyThumbDiv}</div>
       <Row>
         <Col lg={6} sm={12} xs={12}>
           <CompKeyInput
@@ -154,6 +165,7 @@ const TabNewKey: React.FC = () => {
             id={"newkey_public_key"}
             value={pubVal}
             readOnly
+            copyBtn
           />
         </Col>
         <Col>
@@ -163,6 +175,7 @@ const TabNewKey: React.FC = () => {
             id={"newkey_private_key"}
             value={pvtVal}
             readOnly
+            copyBtn
           />
         </Col>
       </Row>
