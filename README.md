@@ -26,6 +26,7 @@ For people who wanna work on it, it is highly recommended to fork it instead of 
 2. #DB: [offline storage](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/offline-for-pwa)
   - [Cache API](https://developers.google.com/web/fundamentals/instant-and-offline/web-storage/cache-api) for resources necessary to load the app
   - [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) for other data
+  - [IndexedDB code lab](https://developers.google.com/web/ilt/pwa/lab-indexeddb)
 3. QR Scanner: ✓
   - https://hackernoon.com/react-js-qr-code-scanner-with-webworker-in-background-7a8bcefd43d
   - https://stackoverflow.com/questions/52255929/progressive-web-app-pwa-qr-code-scanner
