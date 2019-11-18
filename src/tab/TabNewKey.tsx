@@ -38,26 +38,34 @@ const TabNewKey: React.FC = () => {
       setKeyThumb(pgpGenKey.key.getFingerprint());
       setKeyThumbDiv(<div>{`fingerprint: ${pgpGenKey.key.getFingerprint()}`}</div>);
 
-      let myRpgKeys = await localforage.getItem<TYPE_MY_RPG_KEYS>(KEY_MY_RPG_KEYS);
-      console.log(myRpgKeys);
-      localforage.setItem<TYPE_MY_RPG_KEYS>(
-        KEY_MY_RPG_KEYS, 
-        {
-          ...(myRpgKeys||{}),
-          [pgpGenKey.key.getFingerprint()]: {
-            privateKey: pgpGenKey.privateKeyArmored,
-            publicKey: pgpGenKey.publicKeyArmored,
-            email: email,
-            alias: alias,
-          }
-        }
-      )
-
     } 
     catch (error) {
       setKeyThumbDiv(<div>{`${error.toString()}`}</div>)
     }
 
+  }
+  const savePGP = async () => {
+    try {
+      if (!!!pubVal||!!!pvtVal) return;
+      let myRpgKeys = await localforage.getItem<TYPE_MY_RPG_KEYS>(KEY_MY_RPG_KEYS);
+      
+      let resultRpgKeys = await localforage.setItem<TYPE_MY_RPG_KEYS>(
+        KEY_MY_RPG_KEYS, 
+        {
+          ...(myRpgKeys||{}),
+          [keyThumb]: {
+            privateKey: pvtVal,
+            publicKey: pubVal,
+            email: email,
+            alias: alias,
+          }
+        }
+      )
+      console.log(resultRpgKeys);
+    } 
+    catch (error) {
+      setKeyThumbDiv(<div>{`${error.toString()}`}</div>)
+    }
   }
   //===============================================================================//
   return (
@@ -94,6 +102,7 @@ const TabNewKey: React.FC = () => {
                   placeholder="Enter Alias"
                   required
                   onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setAlias(v.target.value) }}
+                  value={alias}
                 />
               </OverlayTrigger>
             </Form.Group>
@@ -118,6 +127,7 @@ const TabNewKey: React.FC = () => {
                   placeholder="Enter email"
                   required
                   onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setEmail(v.target.value) }}
+                  value={email}
                 />
               </OverlayTrigger>
             </Form.Group>
@@ -134,6 +144,7 @@ const TabNewKey: React.FC = () => {
                 placeholder="Enter Passphrase"
                 required
                 onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setPassphrase(v.target.value) }}
+                value={passphrase}
               />
             </Form.Group>
           </Col>
@@ -148,6 +159,7 @@ const TabNewKey: React.FC = () => {
                 isInvalid={passconfirm!==passphrase?true:undefined}
                 isValid={passconfirm===passphrase}
                 onChange={(v: React.ChangeEvent<HTMLInputElement>) => { setPassconfirm(v.target.value) }}
+                value={passconfirm}
               />
             </Form.Group>
           </Col>
@@ -179,6 +191,13 @@ const TabNewKey: React.FC = () => {
           />
         </Col>
       </Row>
+      <Button 
+        type="button"
+        onClick={()=>{console.log('saved clicked')}}
+        disabled={!!!pubVal||!!!pvtVal}
+      >
+        {`Save`}
+      </Button>
     </Container>
   );
 }
