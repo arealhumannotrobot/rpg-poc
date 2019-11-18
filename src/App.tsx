@@ -12,6 +12,7 @@ import TabMyKeys from './tab/TabMyKeys';
 import TabNewKey from './tab/TabNewKey';
 
 const GITTHUB_PAGE = `https://github.com/arealhumannotrobot/rpg-poc`;
+const VERSION = [0,1,0];
 
 type AppProps = {
   reduxState:INIT_STATE_TYPE,
@@ -90,7 +91,7 @@ const App: React.FC<AppProps> = (props) => {
           bg="dark"
           expand="lg"
         >
-          <Navbar.Brand>RPG-POC</Navbar.Brand>
+          <Navbar.Brand>{`RPG-POC`} <sub>{`v${VERSION[0]}.${VERSION[1]}.${VERSION[2]}`}</sub> </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" >
             <Nav 

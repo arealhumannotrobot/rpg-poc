@@ -1,4 +1,4 @@
-# Proof of Concept: Rapid PGP (RPG)
+# Proof of Concept: Rapid PGP (RPG) ([Github Page](https://arealhumannotrobot.github.io/rpg-poc/))
 
 A Progressive Web App that conveniently generate PGP keys (specifically, ed25519 for lightweightness), signing public keys, exchanging key ring of trust to help build a decentralized web of trust. Ideally this web app does not require internet connection at all except for the initial connection to load the page.
 
