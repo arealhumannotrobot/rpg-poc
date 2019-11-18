@@ -30,9 +30,6 @@ const TabMyKeys: React.FC = () => {
     <div className="container">
       {/* <header className="App-header">
       </header> */}
-      <p>
-        Code for Proof of Concept: <a href="https://github.com/arealhumannotrobot/rpg-poc">https://github.com/arealhumannotrobot/rpg-poc</a>
-      </p>
       <CompKeyInput
         label={"public key"}
         name={"public_key"}
