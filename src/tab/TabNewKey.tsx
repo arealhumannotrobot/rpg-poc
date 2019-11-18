@@ -62,6 +62,15 @@ const TabNewKey: React.FC = () => {
         }
       )
       console.log(resultRpgKeys);
+      //clear all after it's done
+      setAlias('');
+      setEmail('');
+      setPassphrase('');
+      setPassconfirm('');
+      setKeyThumb('');
+      setPubVal('');
+      setPvtVal('');
+      setKeyThumbDiv(<div></div>);
     } 
     catch (error) {
       setKeyThumbDiv(<div>{`${error.toString()}`}</div>)
@@ -193,7 +202,7 @@ const TabNewKey: React.FC = () => {
       </Row>
       <Button 
         type="button"
-        onClick={()=>{console.log('saved clicked')}}
+        onClick={savePGP}
         disabled={!!!pubVal||!!!pvtVal}
       >
         {`Save`}
