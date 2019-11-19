@@ -57,4 +57,8 @@ For people who wanna work on it, it is highly recommended to fork it instead of 
     - sign then encrypt
 
 ------------------------------------
- 
+## Problems to be solved:
+0. The [documentation](https://openpgpjs.org/openpgpjs/doc/) is beyond shite with non-functional fragment identifier. Focus on the right side bar for useful information
+1. How to trust a key in openPGP.js? More importantly, how to **distrust** a key in openPGP.js?
+2. Should I store keyring manually or use the Keyring class (which is a mess to begin with)?
+3. probably should take a look at other people's implementation of openPGP.js...
