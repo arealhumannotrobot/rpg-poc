@@ -5,8 +5,6 @@ import {Nav, Container, Navbar} from 'react-bootstrap';
 import NavLink from 'react-bootstrap/NavLink';
 //==============React Redux=========//
 import {connect} from 'react-redux';
-import { INIT_STATE_TYPE } from './redux/initState';
-import { actcreate_tab_setTab } from './redux/reduce_tab';
 //============== Tab ============//
 import TabMyKeys from './tab/TabMyKeys';
 import TabNewKey from './tab/TabNewKey';
@@ -15,18 +13,14 @@ const GITTHUB_PAGE = `https://github.com/arealhumannotrobot/rpg-poc`;
 const VERSION = [0,1,0];
 
 type AppProps = {
-  reduxState:INIT_STATE_TYPE,
-  actcreate_tab_setTab: typeof actcreate_tab_setTab,
 }
 const App: React.FC<AppProps> = (props) => {
 
   type RpgTabContentProps = {
-    reduxState:INIT_STATE_TYPE,
   }
   const RpgTabContent:React.FC<RpgTabContentProps> = (props) => {
     let Tab:typeof TabMyKeys = (childprops)=>(
       <div>
-        {props.reduxState.tab}
         <div className="input-group">
           <div className="input-group-prepend">
             <span className="input-group-text" id="inputGroupFileAddon01">
@@ -60,24 +54,6 @@ const App: React.FC<AppProps> = (props) => {
         </div>
       </div>
     );
-    if (props.reduxState.tab === "MY_KEYS"){
-      Tab = TabMyKeys;
-    }
-    else if (props.reduxState.tab === "NEW_KEYS"){
-      Tab = TabNewKey;
-    }
-    else if (props.reduxState.tab === "KEY_SIGNING"){
-      
-    }
-    else if (props.reduxState.tab === "EXCH_KEY_RING"){
-      
-    }
-    else if (props.reduxState.tab === "VERF_STRANGER"){
-      
-    }
-    else if (props.reduxState.tab === "MSG_CRYPT"){
-      
-    }
 
     return ( <Tab /> )
   }
@@ -97,8 +73,8 @@ const App: React.FC<AppProps> = (props) => {
             <Nav 
               className="mr-auto"
               variant="pills"
-              activeKey={props.reduxState.tab} 
-              onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}}
+              // activeKey={props.reduxState.tab} //FIXME: activeKey
+              // onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}} //FIXME: change tab
             >
               <Nav.Item>
                 <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
@@ -129,7 +105,7 @@ const App: React.FC<AppProps> = (props) => {
           </a>
         </Navbar>
         <RpgTabContent
-          reduxState={props.reduxState}
+          // reduxState={props.reduxState}
         />
       </Container>
 
@@ -137,10 +113,11 @@ const App: React.FC<AppProps> = (props) => {
   );
 }
 
-const mapStateToProps = (state:INIT_STATE_TYPE) => ({ reduxState: state });
-const mapDispatchToProps = {
-  actcreate_tab_setTab
-}
+// const mapStateToProps = (state:INIT_STATE_TYPE) => ({ reduxState: state });
+// const mapDispatchToProps = {
+//   actcreate_tab_setTab
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
 
+export default App;
