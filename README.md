@@ -62,5 +62,3 @@ For people who wanna work on it, it is highly recommended to fork it instead of 
 1. How to trust a key in openPGP.js? More importantly, how to **distrust** a key in openPGP.js?
 2. Should I store keyring manually or use the Keyring class (which is a mess to begin with)?
 3. probably should take a look at other people's implementation of openPGP.js...
-4. Conclusion: fu*k the GPG and the whole PGP ecosystem: https://news.ycombinator.com/item?id=20312826
-5. Try out Keybase.io, if it's busted, I'm out.
