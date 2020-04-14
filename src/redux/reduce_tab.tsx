@@ -1,3 +1,6 @@
+/* 
+    This reducer is for Tab
+*/
 import { INIT_STATE, INIT_STATE_TYPE } from "./initState"
 
 //-----------------------------------
