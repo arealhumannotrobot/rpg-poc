@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import '../App.scss';
+// import '../App.scss';
 import pgp from 'openpgp';
-import CompKeyInput from '../comp/CompKeyInput';
+import CompKeyInput from '../../comp/CompKeyInput';
 //==============react-bootstrap================//
 import {
   Form,
@@ -15,7 +15,7 @@ import {
 } from 'react-bootstrap';
 //==============IndexedDB======================//
 import * as localforage from 'localforage';
-import { KEY_MY_RPG_KEYS, TYPE_MY_RPG_KEYS } from '../model/TypeDefination';
+import { KEY_MY_RPG_KEYS, TYPE_MY_RPG_KEYS } from '../../model/TypeDefination';
 
 const TabNewKey: React.FC = () => {
   const [pubVal, setPubVal] = useState("");

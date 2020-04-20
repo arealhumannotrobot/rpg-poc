@@ -1,7 +1,7 @@
 export type INIT_STATE_TYPE = {
     [x:string]:any,
-    tab: "MY_KEYS"| "NEW_KEYS" | "KEY_SIGNING" | "EXCH_KEY_RING" | "VERF_STRANGER" | "MSG_CRYPT",
-    locale: "en"|"zh-cn"|"zh-tw"
+    tab: "MY_KEYS"| "GEN_KEYS" | "CRYPT_OP" ,
+    locale: "zh-tw"|"zh-cn"|"en",
 }
 
 export const INIT_STATE:INIT_STATE_TYPE = {

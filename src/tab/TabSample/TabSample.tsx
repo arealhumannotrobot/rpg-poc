@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
-import '../App.scss';
+// import '../App.scss';
 import pgp from 'openpgp';
 import QrReader from 'react-qr-reader';
 //=====================================//
 
-import CompKeyInput from '../comp/CompKeyInput';
-import { Jumbotron } from 'react-bootstrap';
+import CompKeyInput from '../../comp/CompKeyInput';
 
 let refPub, refPvt, refMsg
 
@@ -29,9 +28,6 @@ const TabMyKeys: React.FC = () => {
 
   return (
     <div className="container">
-      <Jumbotron>
-        <div>{`Under construction: See NEW_KEYS`}</div>
-      </Jumbotron>
       {/* <header className="App-header">
       </header> */}
       <CompKeyInput

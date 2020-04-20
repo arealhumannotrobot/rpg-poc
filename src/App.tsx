@@ -8,11 +8,12 @@ import {connect} from 'react-redux';
 import { INIT_STATE_TYPE } from './redux/initState';
 import { actcreate_tab_setTab } from './redux/reduce_tab';
 //============== Tab ============//
-import TabMyKeys from './tab/TabMyKeys';
-import TabNewKey from './tab/TabNewKey';
+import TabMyKeys from './tab/TabMyKeys/TabMyKeys';
+import TabNewKey from './tab/TabNewKey/TabNewKey';
+import { version as APP_VERSION } from '../package.json';
+import { localStr } from './args/localeHelper';
 
 const GITTHUB_PAGE = `https://github.com/arealhumannotrobot/rpg-poc`;
-const VERSION = [0,1,0];
 
 type AppProps = {
   reduxState:INIT_STATE_TYPE,
@@ -63,19 +64,16 @@ const App: React.FC<AppProps> = (props) => {
     if (props.reduxState.tab === "MY_KEYS"){
       Tab = TabMyKeys;
     }
-    else if (props.reduxState.tab === "NEW_KEYS"){
+    else if (props.reduxState.tab === "GEN_KEYS"){
       Tab = TabNewKey;
     }
-    else if (props.reduxState.tab === "KEY_SIGNING"){
+    else if (props.reduxState.tab === "CRYPT_OP"){
       
     }
-    else if (props.reduxState.tab === "EXCH_KEY_RING"){
+    else if (props.reduxState.tab === "IMPORT_KEY"){
       
     }
-    else if (props.reduxState.tab === "VERF_STRANGER"){
-      
-    }
-    else if (props.reduxState.tab === "MSG_CRYPT"){
+    else if (props.reduxState.tab === "MANUAL_LINK"){
       
     }
 
@@ -90,8 +88,9 @@ const App: React.FC<AppProps> = (props) => {
           variant="dark"
           bg="dark"
           expand="lg"
+          collapseOnSelect={true}
         >
-          <Navbar.Brand>{`RPG-POC`} <sub>{`v${VERSION[0]}.${VERSION[1]}.${VERSION[2]}`}</sub> </Navbar.Brand>
+          <Navbar.Brand>{`RPG-POC`} <sub>{`v${APP_VERSION}`}</sub> </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" >
             <Nav 
@@ -101,22 +100,22 @@ const App: React.FC<AppProps> = (props) => {
               onSelect={ (k:any) => {console.log(`selected ${k}`); props.actcreate_tab_setTab(k)}}
             >
               <Nav.Item>
-                <NavLink eventKey="MY_KEYS">MY_KEYS</NavLink>
+                <NavLink eventKey="MY_KEYS">{localStr("navbar-my-key")}</NavLink>
               </Nav.Item>
               <Nav.Item>
-                <NavLink eventKey="NEW_KEYS">NEW_KEYS</NavLink>
+                <NavLink eventKey="GEN_KEYS">{localStr("navbar-gen-key")}</NavLink>
               </Nav.Item>
               <Nav.Item>
-                <NavLink eventKey="KEY_SIGNING">KEY_SIGNING</NavLink>
+                <NavLink eventKey="CRYPT_OP">{localStr("navbar-crypto-op")}</NavLink>
               </Nav.Item>
               <Nav.Item>
-                <NavLink eventKey="EXCH_KEY_RING">EXCH_KEY_RING</NavLink>
+                <NavLink eventKey="IMPORT_KEY">{localStr("navbar-import-key")}</NavLink>
               </Nav.Item>
               <Nav.Item>
-                <NavLink eventKey="VERF_STRANGER">VERF_STRANGER</NavLink>
+                <NavLink eventKey="MANUAL_LINK">{localStr("navbar-manual-link")}</NavLink>
               </Nav.Item>
               <Nav.Item>
-                <NavLink eventKey="MSG_CRYPT">MSG_CRYPT</NavLink>
+                
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
