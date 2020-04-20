@@ -8,8 +8,8 @@ import {connect} from 'react-redux';
 import { INIT_STATE_TYPE } from './redux/initState';
 import { actcreate_tab_setTab } from './redux/reduce_tab';
 //============== Tab ============//
-import TabMyKeys from './tab/TabMyKeys/TabMyKeys';
-import TabNewKey from './tab/TabNewKey/TabNewKey';
+import TabMyKeys from './tab/TabMyKeys';
+import TabNewKey from './tab/TabNewKey';
 import { version as APP_VERSION } from '../package.json';
 import { localStr } from './args/localeHelper';
 
